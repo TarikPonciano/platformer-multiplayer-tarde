@@ -4,9 +4,20 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 @onready var animacao = $AnimatedSprite2D
+@onready var rotulo = $Label
 
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
+	
+func _ready() -> void:
+	if (is_multiplayer_authority()):
+		var camera = Camera2D.new()
+		add_child(camera)
+	rotulo.text = str(name)
 
 func _physics_process(delta: float) -> void:
+	if (!is_multiplayer_authority()):
+		return
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta

@@ -199,5 +199,9 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Host"
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://player.tscn")
+spawn_path = NodePath("..")
+
 [connection signal="pressed" from="Control/Panel/BotaoJoin" to="." method="_on_botao_join_pressed"]
 [connection signal="pressed" from="Control/Panel/BotaoHost" to="." method="_on_botao_host_pressed"]
