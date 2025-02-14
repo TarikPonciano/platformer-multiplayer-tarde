@@ -3,7 +3,7 @@ extends Node2D
 const ADDRESS = "127.0.0.1"
 const PORT = 3333
 var peer = ENetMultiplayerPeer.new()
-
+@onready var interface = $Control
 
 func _on_botao_join_pressed() -> void:
 	var resultado = peer.create_client(ADDRESS, PORT)
@@ -20,7 +20,7 @@ func _on_botao_host_pressed() -> void:
 	if resultado == OK: 
 		multiplayer.multiplayer_peer = peer
 		multiplayer.peer_connected.connect(jogador_conectado)
-		
+		interface.visible= false
 		print ("deu bom criar o servidor")
 	else:
 		print("nao deu bom criar o servidor") 
