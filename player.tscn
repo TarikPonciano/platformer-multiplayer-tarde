@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://vdfcj7oq0apb"]
+[gd_scene load_steps=20 format=3 uid="uid://vdfcj7oq0apb"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_0wgki"]
 [ext_resource type="PackedScene" uid="uid://b5ctpoowxjkij" path="res://projetil_jogador.tscn" id="2_egfeu"]
@@ -55,6 +55,10 @@ region = Rect2(132, 32, 33, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_tf2o7"]
 atlas = ExtResource("2_jllqb")
 region = Rect2(165, 32, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfvsn"]
+atlas = ExtResource("2_jllqb")
+region = Rect2(66, 96, 33, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ivmel"]
 animations = [{
@@ -113,6 +117,14 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfvsn")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
 }]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_deow6"]
@@ -138,7 +150,7 @@ shape = SubResource("CapsuleShape2D_gwdi7")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ivmel")
-animation = &"run"
+animation = &"shoot"
 autoplay = "idle"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

@@ -6,6 +6,7 @@ const JUMP_VELOCITY = -400.0
 @onready var animacao = $AnimatedSprite2D
 @onready var rotulo = $Label
 @export var projetil:PackedScene
+var atirando = false
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -21,16 +22,26 @@ func _physics_process(delta: float) -> void:
 		return
 		
 		
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot") and atirando == false:
+		
+		atirando = true
 		#Criar a bola de fogo
 		var novoProjetil = projetil.instantiate()
 		#Ajustar as informações da bola de fogo
 		if animacao.flip_h == false:
-			novoProjetil.position = Vector2(self.position.x, self.position.y)
+			novoProjetil.position = Vector2(self.position.x+30, self.position.y)
 			novoProjetil.direction = 1
 		elif animacao.flip_h == true:
-			novoProjetil.position = Vector2(self.position.x, self.position.y)
+			novoProjetil.position = Vector2(self.position.x-30, self.position.y)
 			novoProjetil.direction = -1
+		
+		var cooldownTimer = Timer.new()
+		cooldownTimer.wait_time = 0.5
+		cooldownTimer.connect("timeout", func():
+			atirando = false
+			cooldownTimer.queue_free())
+		add_child(cooldownTimer)
+		cooldownTimer.start()
 		
 		#Adicionar essa bola de fogo ao mundo
 		get_parent().add_child(novoProjetil, true)
@@ -56,7 +67,9 @@ func _physics_process(delta: float) -> void:
 	elif direction > 0:
 		animacao.flip_h = false
 	
-	if velocity.y < 0:
+	if atirando == true:
+		animacao.play("shoot")
+	elif velocity.y < 0:
 		animacao.play("jump")
 	elif velocity.y > 0:
 		animacao.play("fall")

@@ -3,6 +3,7 @@ extends Area2D
 const SPEED = 200
 var direction = 1
 @onready var animacao = $AnimatedSprite2D
+
 func _ready() -> void:
 	var despawnTimer = Timer.new()
 	despawnTimer.wait_time = 3
