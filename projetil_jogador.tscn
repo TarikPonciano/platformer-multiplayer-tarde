@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://b5ctpoowxjkij"]
+
+[ext_resource type="Texture2D" uid="uid://cd8c41wg76yjj" path="res://Recursos/Prop/Bola de Fogo/spritesheet-fireball.png" id="1_buq08"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8rrx"]
+atlas = ExtResource("1_buq08")
+region = Rect2(0, 0, 29, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7l04g"]
+atlas = ExtResource("1_buq08")
+region = Rect2(29, 0, 29, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tu3ke"]
+atlas = ExtResource("1_buq08")
+region = Rect2(58, 0, 29, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5qh5"]
+atlas = ExtResource("1_buq08")
+region = Rect2(87, 0, 29, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ws2b3"]
+atlas = ExtResource("1_buq08")
+region = Rect2(116, 0, 29, 27)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3h4jn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8rrx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7l04g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tu3ke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5qh5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ws2b3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qkcug"]
+radius = 7.07107
+
+[node name="projetil_jogador" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3h4jn")
+autoplay = "default"
+frame_progress = 0.681993
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0)
+shape = SubResource("CircleShape2D_qkcug")
