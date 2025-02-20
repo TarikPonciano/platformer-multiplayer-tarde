@@ -25,13 +25,18 @@ func _physics_process(delta: float) -> void:
 		#Criar a bola de fogo
 		var novoProjetil = projetil.instantiate()
 		#Ajustar as informações da bola de fogo
-		novoProjetil.position = Vector2(self.position.x, self.position.y)
+		if animacao.flip_h == false:
+			novoProjetil.position = Vector2(self.position.x, self.position.y)
+			novoProjetil.direction = 1
+		elif animacao.flip_h == true:
+			novoProjetil.position = Vector2(self.position.x, self.position.y)
+			novoProjetil.direction = -1
 		
 		#Adicionar essa bola de fogo ao mundo
 		get_parent().add_child(novoProjetil, true)
 		
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor(): 
 		velocity += get_gravity() * delta
 
 	# Handle jump.
@@ -46,9 +51,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
-	if direction == -1:
+	if direction < 0:
 		animacao.flip_h = true
-	elif direction == 1:
+	elif direction > 0:
 		animacao.flip_h = false
 	
 	if velocity.y < 0:
