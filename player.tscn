@@ -1,6 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://vdfcj7oq0apb"]
+[gd_scene load_steps=19 format=3 uid="uid://vdfcj7oq0apb"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_0wgki"]
+[ext_resource type="PackedScene" uid="uid://b5ctpoowxjkij" path="res://projetil_jogador.tscn" id="2_egfeu"]
 [ext_resource type="Texture2D" uid="uid://cic1ljhq72l6s" path="res://Recursos/Personagens/Foxy/Spritesheet-Foxy.png" id="2_jllqb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gwdi7"]
@@ -127,6 +128,7 @@ properties/2/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_0wgki")
+projetil = ExtResource("2_egfeu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 9)

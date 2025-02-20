@@ -5,6 +5,7 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 @onready var animacao = $AnimatedSprite2D
 @onready var rotulo = $Label
+@export var projetil:PackedScene
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -18,6 +19,17 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if (!is_multiplayer_authority()):
 		return
+		
+		
+	if Input.is_action_just_pressed("shoot"):
+		#Criar a bola de fogo
+		var novoProjetil = projetil.instantiate()
+		#Ajustar as informações da bola de fogo
+		novoProjetil.position = Vector2(self.position.x, self.position.y)
+		
+		#Adicionar essa bola de fogo ao mundo
+		get_parent().add_child(novoProjetil, true)
+		
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
