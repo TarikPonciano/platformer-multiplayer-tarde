@@ -4,6 +4,8 @@ const ADDRESS = "127.0.0.1"
 const PORT = 3333
 var peer = ENetMultiplayerPeer.new()
 @onready var interface = $Control
+@export var projetil_scene:PackedScene
+@export var player_scene:PackedScene
 
 func _on_botao_join_pressed() -> void:
 	var resultado = peer.create_client(ADDRESS, PORT)
@@ -33,7 +35,8 @@ func jogador_conectado(id):
 	adicionar_jogador(id)
 
 func adicionar_jogador(id): 
-	var player_scene = preload("res://player.tscn")
+	
 	var novo_jogador = player_scene.instantiate()
 	novo_jogador.name = str (id)
 	add_child(novo_jogador)
+	

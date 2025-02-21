@@ -24,16 +24,8 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("shoot") and atirando == false:
 		
+		rpc_id(1, "criar_projetil", animacao.flip_h, self.position)
 		atirando = true
-		#Criar a bola de fogo
-		var novoProjetil = projetil.instantiate()
-		#Ajustar as informações da bola de fogo
-		if animacao.flip_h == false:
-			novoProjetil.position = Vector2(self.position.x+30, self.position.y)
-			novoProjetil.direction = 1
-		elif animacao.flip_h == true:
-			novoProjetil.position = Vector2(self.position.x-30, self.position.y)
-			novoProjetil.direction = -1
 		
 		var cooldownTimer = Timer.new()
 		cooldownTimer.wait_time = 0.5
@@ -43,8 +35,7 @@ func _physics_process(delta: float) -> void:
 		add_child(cooldownTimer)
 		cooldownTimer.start()
 		
-		#Adicionar essa bola de fogo ao mundo
-		get_parent().add_child(novoProjetil, true)
+		
 		
 	# Add the gravity.
 	if not is_on_floor(): 
@@ -79,3 +70,19 @@ func _physics_process(delta: float) -> void:
 		animacao.play("idle")
 
 	move_and_slide() 
+	
+	
+@rpc("any_peer", "call_local","reliable")
+func criar_projetil(direcao, posicao):
+	#Criar a bola de fogo
+	var novoProjetil = projetil.instantiate()
+		#Ajustar as informações da bola de fogo
+	if direcao == false:
+		novoProjetil.position = Vector2(posicao.x+30, posicao.y)
+		novoProjetil.direction = 1
+	elif direcao == true:
+		novoProjetil.position = Vector2(posicao.x-30, posicao.y)
+		novoProjetil.direction = -1
+			
+		#Adicionar essa bola de fogo ao mundo
+	get_parent().add_child(novoProjetil, true)

@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=4 uid="uid://j2ohjfjptp"]
+[gd_scene load_steps=7 format=4 uid="uid://j2ohjfjptp"]
 
 [ext_resource type="Texture2D" uid="uid://c8031x3ikoaox" path="res://Recursos/Terrenos/Terreno-Padrao-Tileset.png" id="1_8fxhl"]
 [ext_resource type="Script" path="res://game.gd" id="1_alalp"]
+[ext_resource type="PackedScene" uid="uid://b5ctpoowxjkij" path="res://projetil_jogador.tscn" id="2_0vjae"]
+[ext_resource type="PackedScene" uid="uid://vdfcj7oq0apb" path="res://player.tscn" id="3_awnf1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rbdl1"]
 texture = ExtResource("1_8fxhl")
@@ -150,6 +152,8 @@ sources/0 = SubResource("TileSetAtlasSource_rbdl1")
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_alalp")
+projetil_scene = ExtResource("2_0vjae")
+player_scene = ExtResource("3_awnf1")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(-656, -608)
@@ -200,7 +204,7 @@ grow_vertical = 2
 text = "Host"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://player.tscn")
+_spawnable_scenes = PackedStringArray("res://player.tscn", "res://projetil_jogador.tscn")
 spawn_path = NodePath("..")
 
 [connection signal="pressed" from="Control/Panel/BotaoJoin" to="." method="_on_botao_join_pressed"]
