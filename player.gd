@@ -7,6 +7,7 @@ const JUMP_VELOCITY = -400.0
 @onready var rotulo = $Label
 @export var projetil:PackedScene
 var atirando = false
+var tipo = "Jogador"
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -76,6 +77,7 @@ func _physics_process(delta: float) -> void:
 func criar_projetil(direcao, posicao):
 	#Criar a bola de fogo
 	var novoProjetil = projetil.instantiate()
+	novoProjetil.dono = str(multiplayer.get_remote_sender_id())
 		#Ajustar as informações da bola de fogo
 	if direcao == false:
 		novoProjetil.position = Vector2(posicao.x+30, posicao.y)

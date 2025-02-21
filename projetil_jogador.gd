@@ -3,6 +3,7 @@ extends Area2D
 const SPEED = 200
 var direction = 1
 @onready var animacao = $AnimatedSprite2D
+@export var dono: String
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(1)
@@ -26,3 +27,11 @@ func _physics_process(delta: float) -> void:
 			position.x -= SPEED * delta
 			animacao.flip_h = true
 	
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group("jogadores"):
+		if (body.name != dono):
+			body.queue_free()
+			self.queue_free()
+		
