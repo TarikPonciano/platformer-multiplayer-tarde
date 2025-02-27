@@ -14,7 +14,19 @@ func _enter_tree() -> void:
 	
 func _ready() -> void:
 	if (is_multiplayer_authority()):
+		
+		var random = RandomNumberGenerator.new()
+		var spawns = get_parent().spawnPoints.get_children()
+		var spawnAleatorio = spawns[random.randi_range(0, spawns.size() - 1)]
+		self.position = spawnAleatorio.position
+		
+		
 		var camera = Camera2D.new()
+		camera.limit_left = -686
+		camera.limit_right = 1646
+		camera.limit_top = 0
+		camera.limit_bottom = 700
+		camera.zoom = Vector2(1.5,1.5)
 		add_child(camera)
 	rotulo.text = str(name)
 
@@ -71,6 +83,13 @@ func _physics_process(delta: float) -> void:
 		animacao.play("idle")
 
 	move_and_slide() 
+	
+func death():
+		var random = RandomNumberGenerator.new()
+		var spawns = get_parent().spawnPoints.get_children()
+		var spawnAleatorio = spawns[random.randi_range(0, spawns.size() - 1)]
+		self.position = spawnAleatorio.position
+	
 	
 	
 @rpc("any_peer", "call_local","reliable")

@@ -6,6 +6,7 @@ var peer = ENetMultiplayerPeer.new()
 @onready var interface = $Control
 @export var projetil_scene:PackedScene
 @export var player_scene:PackedScene
+@onready var spawnPoints = $SpawnPoints
 
 func _on_botao_join_pressed() -> void:
 	var resultado = peer.create_client(ADDRESS, PORT)
@@ -37,6 +38,6 @@ func jogador_conectado(id):
 func adicionar_jogador(id): 
 	
 	var novo_jogador = player_scene.instantiate()
-	novo_jogador.name = str (id)
+	novo_jogador.name = str(id)
 	add_child(novo_jogador)
 	
