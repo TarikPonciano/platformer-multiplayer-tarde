@@ -34,6 +34,7 @@ func _on_body_entered(body: Node2D) -> void:
 		if (body.name != dono and multiplayer.get_unique_id() == 1):
 			#body.death()
 			rpc_id(body.name.to_int(), "player_death_multiplayer", body.name)
+			get_parent().update_scores(dono, body.name)
 			self.queue_free()
 			
 @rpc("any_peer", "call_local", "reliable")

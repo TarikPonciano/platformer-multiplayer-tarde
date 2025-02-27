@@ -223,5 +223,22 @@ position = Vector2(1216, 452)
 [node name="Spawn4" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(1531, 452)
 
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="LeaderBoard" type="TextEdit" parent="HUD"]
+offset_top = 3.0
+offset_right = 318.0
+offset_bottom = 212.0
+placeholder_text = "Leaderboard
+"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+
 [connection signal="pressed" from="Control/Panel/BotaoJoin" to="." method="_on_botao_join_pressed"]
 [connection signal="pressed" from="Control/Panel/BotaoHost" to="." method="_on_botao_host_pressed"]

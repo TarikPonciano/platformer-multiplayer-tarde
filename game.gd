@@ -7,6 +7,8 @@ var peer = ENetMultiplayerPeer.new()
 @export var projetil_scene:PackedScene
 @export var player_scene:PackedScene
 @onready var spawnPoints = $SpawnPoints
+@onready var leaderBoard = $HUD/LeaderBoard
+@onready var points = {}
 
 func _on_botao_join_pressed() -> void:
 	var resultado = peer.create_client(ADDRESS, PORT)
@@ -40,4 +42,27 @@ func adicionar_jogador(id):
 	var novo_jogador = player_scene.instantiate()
 	novo_jogador.name = str(id)
 	add_child(novo_jogador)
+	
+func update_scores(killer, victim):
+	if (points.get(killer)):
+		points[killer]["kills"] += 1
+	else:
+		points[killer] = {"kills": 1, "deaths": 0}
+		
+	if (points.get(victim)):
+		points[victim]["deaths"] += 1
+	else:
+		points[victim] = {"kills": 0, "deaths": 1}
+		
+	var texto = "ID - K - D \n"
+	for id in points.keys():	
+		texto += str(id," - ",points[id]["kills"]," - ",points[id]["deaths"],"\n")
+		
+	leaderBoard.text = texto
+		
+	rpc("update_leaderboard", leaderBoard.text)
+
+@rpc("any_peer","call_local", "reliable")
+func update_leaderboard(novoLeaderBoard):
+	leaderBoard.text = novoLeaderBoard
 	
