@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://du6kc0hkhdrb1"]
+
+[ext_resource type="Texture2D" uid="uid://d13fu3nmjsm8m" path="res://Recursos/BG/back.png" id="1_cgkgc"]
+[ext_resource type="Texture2D" uid="uid://7pe6gsdntmsv" path="res://Recursos/BG/middle.png" id="2_t2x5f"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+metadata/_edit_vertical_guides_ = [769.0, 872.0]
+
+[node name="Ceu" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(768, 0)
+
+[node name="Back" type="Sprite2D" parent="Ceu"]
+position = Vector2(384, 242)
+scale = Vector2(2, 2)
+texture = ExtResource("1_cgkgc")
+
+[node name="Montanhas" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(872, 0)
+
+[node name="Middle" type="Sprite2D" parent="Montanhas"]
+position = Vector2(88, 568)
+texture = ExtResource("2_t2x5f")
+
+[node name="Middle2" type="Sprite2D" parent="Montanhas"]
+position = Vector2(257, 568)
+texture = ExtResource("2_t2x5f")
+
+[node name="Middle3" type="Sprite2D" parent="Montanhas"]
+position = Vector2(433, 568)
+texture = ExtResource("2_t2x5f")
+
+[node name="Middle4" type="Sprite2D" parent="Montanhas"]
+position = Vector2(608, 568)
+texture = ExtResource("2_t2x5f")
+
+[node name="Middle5" type="Sprite2D" parent="Montanhas"]
+position = Vector2(784, 569)
+texture = ExtResource("2_t2x5f")
