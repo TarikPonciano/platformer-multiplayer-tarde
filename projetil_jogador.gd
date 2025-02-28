@@ -20,6 +20,9 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
+		if animacao.animation == "hit":
+			return
+		
 		if direction == 1:
 			position.x += SPEED * delta
 			animacao.flip_h = false
@@ -33,8 +36,13 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("jogadores"):
 		if (body.name != dono and multiplayer.get_unique_id() == 1):
 			#body.death()
+			if body.animacao.animation == "death":
+				return
+				
 			rpc_id(body.name.to_int(), "player_death_multiplayer", body.name)
 			get_parent().update_scores(dono, body.name)
+			animacao.play("hit")
+			await animacao.animation_finished
 			self.queue_free()
 			
 @rpc("any_peer", "call_local", "reliable")

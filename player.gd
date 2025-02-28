@@ -9,6 +9,7 @@ const JUMP_VELOCITY = -400.0
 var atirando = false
 var tipo = "Jogador"
 
+
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 	
@@ -33,7 +34,9 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if (!is_multiplayer_authority()):
 		return
-		
+	
+	if (animacao.animation == "death"):
+		return
 		
 	if Input.is_action_just_pressed("shoot") and atirando == false:
 		
@@ -88,7 +91,13 @@ func death():
 		var random = RandomNumberGenerator.new()
 		var spawns = get_parent().spawnPoints.get_children()
 		var spawnAleatorio = spawns[random.randi_range(0, spawns.size() - 1)]
+		animacao.play("death")
+		$CollisionShape2D.disabled = true
+		await animacao.animation_finished
 		self.position = spawnAleatorio.position
+		$CollisionShape2D.disabled = false
+		animacao.play("idle")
+		
 	
 	
 	

@@ -1,12 +1,37 @@
-[gd_scene load_steps=20 format=3 uid="uid://vdfcj7oq0apb"]
+[gd_scene load_steps=27 format=3 uid="uid://vdfcj7oq0apb"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_0wgki"]
 [ext_resource type="PackedScene" uid="uid://b5ctpoowxjkij" path="res://projetil_jogador.tscn" id="2_egfeu"]
 [ext_resource type="Texture2D" uid="uid://cic1ljhq72l6s" path="res://Recursos/Personagens/Foxy/Spritesheet-Foxy.png" id="2_jllqb"]
+[ext_resource type="Texture2D" uid="uid://cmhghvkqxqxr7" path="res://Recursos/Personagens/Foxy/spritesheet.png" id="4_3itub"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gwdi7"]
 radius = 16.6421
 height = 52.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dcc1"]
+atlas = ExtResource("2_jllqb")
+region = Rect2(0, 128, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wflh4"]
+atlas = ExtResource("2_jllqb")
+region = Rect2(33, 128, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5gfv"]
+atlas = ExtResource("4_3itub")
+region = Rect2(0, 0, 28, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0kvq"]
+atlas = ExtResource("4_3itub")
+region = Rect2(28, 0, 28, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ildjp"]
+atlas = ExtResource("4_3itub")
+region = Rect2(56, 0, 28, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q5ply"]
+atlas = ExtResource("4_3itub")
+region = Rect2(84, 0, 28, 26)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h86tv"]
 atlas = ExtResource("2_jllqb")
@@ -62,6 +87,41 @@ region = Rect2(66, 96, 33, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ivmel"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3dcc1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wflh4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3dcc1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wflh4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3dcc1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wflh4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5gfv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k0kvq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ildjp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q5ply")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_h86tv")
@@ -137,6 +197,12 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("AnimatedSprite2D:flip_h")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath("AnimatedSprite2D:frame")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("CollisionShape2D:disabled")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D" groups=["jogadores"]]
 script = ExtResource("1_0wgki")
@@ -150,8 +216,10 @@ shape = SubResource("CapsuleShape2D_gwdi7")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ivmel")
-animation = &"shoot"
+animation = &"death"
 autoplay = "idle"
+frame = 9
+frame_progress = 1.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_deow6")
