@@ -10,6 +10,12 @@ var peer = ENetMultiplayerPeer.new()
 @onready var leaderBoard = $HUD/LeaderBoard
 @onready var points = {}
 
+func _process(delta: float) -> void:
+	if Input.is_action_pressed("view_stats"):
+		leaderBoard.visible = true
+	else:
+		leaderBoard.visible = false
+
 func _on_botao_join_pressed() -> void:
 	var resultado = peer.create_client(ADDRESS, PORT)
 	if resultado == OK: 
@@ -37,24 +43,29 @@ func jogador_conectado(id):
 	print("O jogador foi conectado", id)
 	adicionar_jogador(id)
 
-func adicionar_jogador(id): 
+func adicionar_jogador(id:int): 
 	
 	var novo_jogador = player_scene.instantiate()
 	novo_jogador.name = str(id)
+	points[str(id)] = {"kills":0, "deaths":0}
+	update_scores("0","0")
 	add_child(novo_jogador)
 	
-func update_scores(killer, victim):
-	if (points.get(killer)):
-		points[killer]["kills"] += 1
+func update_scores(killer:String, victim:String):
+	if killer == "0" or victim == "0":
+		pass
 	else:
-		points[killer] = {"kills": 1, "deaths": 0}
+		if (points.get(killer)):
+			points[killer]["kills"] += 1
+		else:
+			points[killer] = {"kills": 1, "deaths": 0}
+			
+		if (points.get(victim)):
+			points[victim]["deaths"] += 1
+		else:
+			points[victim] = {"kills": 0, "deaths": 1}
 		
-	if (points.get(victim)):
-		points[victim]["deaths"] += 1
-	else:
-		points[victim] = {"kills": 0, "deaths": 1}
-		
-	var texto = "ID - K - D \n"
+	var texto = "Leaderboard:\nID - K - D \n"
 	for id in points.keys():	
 		texto += str(id," - ",points[id]["kills"]," - ",points[id]["deaths"],"\n")
 		
